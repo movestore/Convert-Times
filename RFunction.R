@@ -17,9 +17,10 @@ rFunction <- function(data,
   
   if (sum(local, local_details, sunriset, mean_solar, true_solar) == 0){
     
-    logger.info("You have not selected any timestamp conversion. The original dataset will be returned and provided as csv output.")
+    logger.info("You have not selected any timestamp conversion. The original dataset will be returned")
+                # and provided as csv output.")
     
-    readr::write_csv(data, file = appArtifactPath("data_wtime.csv"))
+    # readr::write_csv(data, file = appArtifactPath("data_wtime.csv"))
     
   } else {
   
@@ -133,33 +134,22 @@ rFunction <- function(data,
     }
     
     
-    # Prepare data for csv artifact (grossly based on previous app move1 version)
-    data |> 
-      dplyr::relocate(
-        mt_track_id_column(data),
-        dplyr::all_of(tm_col_id),
-        .before = 1
-      ) |> 
-      dplyr::mutate(
-        location_long = lonlat[, "X"], 
-        location_lat = lonlat[, "Y"],
-        .after = dplyr::all_of(tm_col_id)
-      ) |> 
-      # using {readr} as `write.csv` was not exporting the data correctly
-      readr::write_csv(file = appArtifactPath("data_wtime.csv"))
+    # # Prepare data for csv artifact (grossly based on previous app move1 version)
+    # data |> 
+    #   dplyr::relocate(
+    #     mt_track_id_column(data),
+    #     dplyr::all_of(tm_col_id),
+    #     .before = 1
+    #   ) |> 
+    #   dplyr::mutate(
+    #     location_long = lonlat[, "X"], 
+    #     location_lat = lonlat[, "Y"],
+    #     .after = dplyr::all_of(tm_col_id)
+    #   ) |> 
+    #   # using {readr} as `write.csv` was not exporting the data correctly
+    #   readr::write_csv(file = appArtifactPath("data_wtime.csv"))
   }
   
   return(data)
   
 }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
